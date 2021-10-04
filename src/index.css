@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;700;800&display=swap");
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.logoContainer {
+  /* background-color: #f8d024; */
+  height: 100px;
+  padding: 6px 0px 6px 20px;
+  display: grid;
+  grid-template-columns: 0fr 4fr;
+  grid-template-rows: 0fr 2fr;
+  grid-template-areas: "logoNU logoTitle menu" "logoNU logoTitle_ menu";
+}
+
+.logoContainer .logoNU {
+  grid-area: logoNU;
+  height: 90px;
+}
+
+.logoContainer .logoTitle {
+  color: #ffff;
+  font-family: "Raleway";
+  padding-left: 15px;
+}
+
+.logoContainer .logoTitle_ {
+  font-family: "Raleway";
+  color: #f8d024;
+  padding-left: 15px;
+  font-weight: bold;
+}

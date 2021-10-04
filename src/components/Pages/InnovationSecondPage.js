@@ -10,9 +10,6 @@ import { Button } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { AppBar, Container, Toolbar, Tab } from "@material-ui/core";
-import TabContext from "@material-ui/lab/TabContext";
-import TabList from "@material-ui/lab/TabList";
-import TabPanel from "@material-ui/lab/TabPanel";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -80,62 +77,7 @@ export default function InnovationSecondPage() {
             <Typography variant="subtitle">
               <strong>Status:</strong> Samp
             </Typography>
-            <TabContext value={value}>
-              <CardActions>
-                <TabList
-                  onChange={handleChange}
-                  TabIndicatorProps={{
-                    style: { background: "#30408d" },
-                  }}
-                >
-                  <Tab label="Description" value="1" />
-                  <Tab label="Stories" value="2" />
-                </TabList>
-              </CardActions>
-              <TabPanel value="1">
-                <Typography display="flex" style={{ height: 400 }}>
-                  Description: "Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                  sint occaecat cupidatat non proident, sunt in culpa qui
-                  officia deserunt mollit anim id est laborum", "Lorem ipsum
-                  dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                  minim veniam, quis nostrud exercitation ullamco laboris nisi
-                  ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                  nulla pariatur. Excepteur sint occaecat cupidatat non
-                  proident, sunt in culpa qui officia deserunt mollit anim id
-                  est laborum", "Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit, sed do
-                </Typography>
-              </TabPanel>
 
-              <TabPanel value="2">
-                <Typography display="flex" style={{ height: 400 }}>
-                  Stories: "Lorem ipsum dolor sit amet, consectetur adipiscing
-                  elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua. Ut enim ad minim veniam, quis nostrud
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                  sint occaecat cupidatat non proident, sunt in culpa qui
-                  officia deserunt mollit anim id est laborum", "Lorem ipsum
-                  dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                  minim veniam, quis nostrud exercitation ullamco laboris nisi
-                  ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                  nulla pariatur. Excepteur sint occaecat cupidatat non
-                  proident, sunt in culpa qui officia deserunt mollit anim id
-                  est laborum", "Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit, sed do
-                </Typography>
-              </TabPanel>
-            </TabContext>
             <div
               style={{ justifyContent: "end", display: "flex", columnGap: 20 }}
             >

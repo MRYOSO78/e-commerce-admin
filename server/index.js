@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const mysql = require('mysql');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const db = mysql.createPool({
     host: "localhost",
@@ -9,18 +11,11 @@ const db = mysql.createPool({
     database: "centie"
 })
 
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({extended: true}))
 
-// app.get("/", (req, res) => {
-
-//     const sqlInsert = "INSERT INTO products (product_id, product_price, product_category, product_pictures) VALUES ('2', '400', 'Electronics' )"
-//     db.query(sqlInsert, (err, result) => {
-//         res.send("Hello world");
-//     })
-    
-// });
-
-// get all users
-app.get("/", (req, res) => {
+app.get("/api/getUsers", (req, res) => {
     db.getConnection((err, connection) => {
         if(err) throw err
         console.log('connected as id ${connection.threadId}');
@@ -37,6 +32,6 @@ app.get("/", (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log("Running on port 3000");
+app.listen(5000, () => {
+    console.log("Running on port 5000");
 });

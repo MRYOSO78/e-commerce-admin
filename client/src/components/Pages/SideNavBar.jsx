@@ -14,7 +14,7 @@ function SideNavBar(props) {
     const [exhibits, setexhibits] = useState();
     const [reports, setreports] = useState();
     const [onclickManagement, setonclickManagement] = useState(true);
-  
+    const [zoomResponsive, setzoomResponsive] = useState('');
     useEffect(() => {
       if (props.active === "dashboard") {
         setdashboard("#5B5D6D");
@@ -30,11 +30,16 @@ function SideNavBar(props) {
       } else if (props.active === "reports") {
         setreports("#5B5D6D");
       }
-    }, []);
-    return (
-        <div>
 
-<div id="sideNavBar">
+      
+    }, []);
+
+
+    
+    return (
+        <div >
+
+<div id={`sideNavBar`}>
      
      <Container
        id="ContainerNavItem"

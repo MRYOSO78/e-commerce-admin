@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState , useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Col, Form, Row ,Tab, Container, Image, Overlay, OverlayTrigger, Button, Modal} from "react-bootstrap";
 import SideNavBar from './SideNavBar';
@@ -12,22 +12,7 @@ import Divider from '@mui/material/Divider';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import Axios from 'axios';
-import {Link, NavLink} from 'react-router-dom';
-import { 
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Avatar,
-  Grid,
-  Typography,
-  TablePagination,
-  TableFooter
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { hostUrl } from '../utils/hostUrl';
 
 function MyVerticallyCenteredModal(props) {
     const [validated, setValidated] = useState(false);
@@ -71,13 +56,14 @@ function MyVerticallyCenteredModal(props) {
 
 function Users() {
 
-  const [user_id, setUserId] = useState("");
-  const [user_fname, setUserFName] = useState("");
-  const [user_lname, setUserLName] = useState("");
-  const [user_email, setUserEmail] = useState("");
-  const [user_contact, setUserContact] = useState("");
-  const [user_address, setUserAddress] = useState("");
-  const [userlists, setUserLists] = useState("");
+    const [user, setuser] = useState([]);
+    useEffect(() => {
+      Axios.get(`${hostUrl}/api/getUsers`)
+      .then((response) => setuser(response.data))
+      .catch((err) => console.error(err));
+      console.log(user);
+    }, []);
+
 
     const StyledMenu = styled((props) => (
         <Menu
@@ -129,99 +115,26 @@ function Users() {
     setAnchorEl(null);
   };
 
+    var data = [
+        { user_id: '101', firstname: 'Baran', lastname: 'Musfet', email: 'ZeryaBetül@gmail.com' ,contact_number:'090807064578', address: '2529 AU' },
+        { user_id: '102', firstname: 'Baran', lastname: 'Longan', email: 'ZeryaBetül@gmail.com' ,contact_number:'090807064578', address: '2529 AU' },
+        { user_id: '103', firstname: 'Baran', lastname: 'Musfet', email: 'ZeryaBetül@gmail.com' ,contact_number:'090807064578', address: '2529 AU' },
+        { user_id: '104', firstname: 'Baran', lastname: 'Longan', email: 'ZeryaBetül@gmail.com' ,contact_number:'090807064578', address: '2529 AU' },
+        { user_id: '105', firstname: 'Baran', lastname: 'Musfet', email: 'ZeryaBetül@gmail.com' ,contact_number:'090807064578', address: '2529 AU' },
+        { user_id: '106', firstname: 'Baran', lastname: 'Longan', email: 'ZeryaBetül@gmail.com' ,contact_number:'090807064578', address: '2529 AU' },
+        { user_id: '107', firstname: 'Baran', lastname: 'Musfet', email: 'ZeryaBetül@gmail.com' ,contact_number:'090807064578', address: '2529 AU' },
+        { user_id: '108', firstname: 'Baran', lastname: 'Longan', email: 'ZeryaBetül@gmail.com' ,contact_number:'090807064578', address: '2529 AU' },
+        { user_id: '109', firstname: 'Baran', lastname: 'Musfet', email: 'ZeryaBetül@gmail.com' ,contact_number:'090807064578', address: '2529 AU' },
+        { user_id: '110', firstname: 'Baran', lastname: 'Longan', email: 'ZeryaBetül@gmail.com' ,contact_number:'090807064578', address: '2529 AU' },
+        { user_id: '111', firstname: 'Baran', lastname: 'Musfet', email: 'ZeryaBetül@gmail.com' ,contact_number:'090807064578', address: '2529 AU' },
+        { user_id: '112', firstname: 'Baran', lastname: 'Longan', email: 'ZeryaBetül@gmail.com' ,contact_number:'090807064578', address: '2529 AU' },
+      ];
+   
       const [modalShow, setModalShow] = React.useState(false);
 
-      const useStyles = makeStyles((theme) => ({
-        table: {
-          minWidth: 650,
-        },
-        tableContainer: {
-            // borderRadius: 15,
-            margin: '10px 10px',
-            maxWidth: 950
-        },
-        tableHeaderCell: {
-            fontWeight: 'bold',
-            backgroundColor: theme.palette.primary.dark,
-            color: theme.palette.getContrastText(theme.palette.primary.dark)
-        },
-        avatar: {
-            backgroundColor: theme.palette.primary.light,
-            color: theme.palette.getContrastText(theme.palette.primary.light)
-        },
-        name: {
-            fontWeight: 'bold',
-            color: theme.palette.secondary.dark
-        },
-        status: {
-            fontWeight: 'bold',
-            fontSize: '0.75rem',
-            color: 'white',
-            backgroundColor: 'grey',
-            borderRadius: 8,
-            padding: '3px 10px',
-            display: 'inline-block'
-        }
-      }));
-
-      const classes = useStyles();
-      const [page, setPage] = React.useState(0);
-      const [rowsPerPage, setRowsPerPage] = React.useState(5);
-    
-     const [search, setSearch] = useState("");
-    
-    
-      const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-      };
-    
-      const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-      };
+   
 
 
-  //  useEffect(() => {
-  //     Axios.get('http://localhost:5000/api/getUsers').then((response) => {
-  //       setUserLists(response.data);
-  //       console.log(response.data);
-  //     })
-  //  }, [])
-
-
-  const [userslist, setuserslist]=useState([])
-  useEffect(()=>{
-      Axios.get('http://localhost:5000/api/getUsers').then(
-          res=>{
-              console.log(res);
-              setuserslist(res.data);
-          }
-      ).catch(err=>{
-          console.log(err);
-      })
-      
-  },[])
-  const usersdata = userslist.filter((obj) => {
-    if (search == ""){
-      return obj;
-    }
-    else if (obj.user_fname.toLowerCase().includes(search.toLowerCase())){
-      return obj;
-    }
-  }).map((obj)=>{
-      return <tr>
-          <td>{obj.user_id}</td>
-          <td>{obj.user_fname}</td>
-          <td>{obj.user_lname}</td>
-          <td>{obj.user_email}</td>
-          <td>{obj.user_contact}</td>
-          <td>{obj.user_address}</td>
-         
-          <td><a href="#" className="settings" title="Settings" data-toggle="tooltip"><i className="material-icons">&#xE8B8;</i></a></td>
-      </tr>
-  })
-
-  
  
     return (
         <div style={{marginTop:100}}>
@@ -234,112 +147,156 @@ function Users() {
         <SideNavBar active={'users'} />
     </Col>
     <Col sm={10}>
-    <main>
-        <div className='form-inputs' style={{height:"10px", width:"500px", marginTop: "1%", marginBottom:"4%", marginLeft:"46%"}}>
-                <input
-                  className='form-control'
-                  type='text'
-                  name='notifyaddress'
-                  placeholder='Search'
-                  onChange={event => {setSearch(event.target.value)}}
-                />
-       </div>
-    <TableContainer component={Paper} className={classes.tableContainer}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell className={classes.tableHeaderCell}>User ID</TableCell>
-            <TableCell className={classes.tableHeaderCell}>First Name</TableCell>
-            <TableCell className={classes.tableHeaderCell}>Last Name</TableCell>
-            <TableCell className={classes.tableHeaderCell}>Email</TableCell>
-            <TableCell className={classes.tableHeaderCell}>Contact Number</TableCell>
-            <TableCell className={classes.tableHeaderCell}>Address</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {userslist.filter((obj) => {
-            if (search == ""){
-              return obj;
-            }
-            else if (obj.user_id.toLowerCase().includes(search.toLowerCase()) || obj.user_fname.toLowerCase().includes(search.toLowerCase()) || obj.user_lname.toLowerCase().includes(search.toLowerCase())){
-              return obj;
-            }
-          }).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((obj) => (
-            <TableRow>
-              <TableCell>
-                  <Grid container>
-                      <Grid item lg={2}>
-                          <Avatar alt={obj.user_Id} src='.' className={classes.avatar}/>
-                      </Grid>
-                      <Grid item lg={10}>
-                        <Typography color="textSecondary" variant="body2">{obj.user_id}</Typography>
+        <Row>
+            <div style={{padding: 10 , color:'#30408D'}}>
+                <h1>Users</h1>
+            </div>
+        </Row>
+
+        <Row>
+            <div style={{padding:20}}>
+            <MaterialTable
             
-                      </Grid>
-                  </Grid>
-                </TableCell>
-              <TableCell>
-              <Link to = "/" style={{textDecoration:"none"}}> <Typography className={classes.name}>{obj.user_fname}</Typography> </Link> 
-                  {/* <Typography color="textSecondary" variant="body2">{obj.lastname}</Typography> */}
-                </TableCell>
-              <TableCell>
-              <Link to = "/" style={{textDecoration:"none"}}> <Typography className={classes.name}>{obj.user_lname}</Typography> </Link>
-              </TableCell>
-          
-              <TableCell>
-              <Typography color="primary" variant="subtitle2">{obj.user_email}</Typography>
-              </TableCell>
-              <TableCell>
-              <Typography color="primary" variant="subtitle2">{obj.user_contact}</Typography>
-              </TableCell>
-              <TableCell>
-              <Typography color="primary" variant="subtitle2">{obj.user_address}</Typography>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-        <TableFooter>
-        <TablePagination
-        style={{width:"400px"}}
-            rowsPerPageOptions={[5, 10, 15]}
-            component="div"
-            count={usersdata.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-        </TableFooter>
-      </Table>
-    </TableContainer>
-    <script src ="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"></script>
-    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+      title=""
+      columns={[
+        { title: 'User ID', field: 'user_id' },
+        { title: 'First Name', field: 'user_fname' },
+        { title: 'Last Name', field: 'user_lname'},
+        { title: 'Email', field: 'user_email'},
+        { title: 'Contact Number', field: 'user_contact'},
+        { title: 'Address', field: 'user_address'},
+        {
+            title: '',
+            render: rowData => <div style={{cursor:'pointer'}}> 
+               
+                <MoreHorizIcon onClick={handleClick} />
+                <StyledMenu
+        id="demo-customized-menu"
+        MenuListProps={{
+          'aria-labelledby': 'demo-customized-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose} disableRipple>
+          <EditIcon />
+         <strong> Edit </strong>
+        </MenuItem>
+        <MenuItem onClick={handleClose} disableRipple>
+          <FileCopyIcon style={{color:'red'}}/>
+         <strong style={{color:'red', marginTop:5}}>Archive</strong> 
+        </MenuItem>
+      </StyledMenu>
 
-    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    
-    <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="assets/extra-libs/sparkline/sparkline.js"></script>
-    
-    <script src="dist/js/waves.js"></script>
-    
-    <script src="dist/js/sidebarmenu.js"></script>
-    
-    <script src="dist/js/custom.min.js"></script>
-  
-    <script src="assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
-    <script src="assets/extra-libs/multicheck/jquery.multicheck.js"></script>
-    <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
-    <script>
-        /****************************************
-         *       Basic Table                   *
-         ****************************************/
-        $('#zero_config').DataTable();
-    </script>
-
-        </main>
+                 </div>
+          }
+        
+      ]}
+      data={user}        
+      options={{
+        sorting: true,
+      }}
+      actions={[
+        {
+          icon: 'add',
+          tooltip: 'Add User',
+          isFreeAction: true,
+          onClick: (event, rowData) => {
+            setModalShow(true);
+          }
+        },
+        {
+            icon: ArchiveIcon,
+            tooltip: 'View Archive',
+            isFreeAction: true,
+            onClick: (event) => alert("You want to add a new row")
+          }
+      ]}
+    />
+            </div>
+        </Row>
 
         
+        <Row>
+            <div style={{padding: 10 , color:'#30408D'}}>
+                <h1>News Letter</h1>
+            </div>
+        </Row>
+
+        <Row>
+            <div style={{padding:20}}>
+            <MaterialTable
+      title=""
+      columns={[
+        { title: 'User ID', field: 'user_id' },
+        { title: 'First Name', field: 'firstname' },
+        { title: 'Last Name', field: 'lastname'},
+        { title: 'Email', field: 'email'},
+        {
+            title: '',
+            render: rowData => <div style={{cursor:'pointer'}}> 
+               
+                <MoreHorizIcon onClick={handleClick} />
+                <StyledMenu
+        id="demo-customized-menu"
+        MenuListProps={{
+          'aria-labelledby': 'demo-customized-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose} disableRipple>
+          <EditIcon />
+         <strong> Edit </strong>
+        </MenuItem>
+        <MenuItem onClick={handleClose} disableRipple>
+          <FileCopyIcon style={{color:'red'}}/>
+         <strong style={{color:'red', marginTop:5}}>Archive</strong> 
+        </MenuItem>
+      </StyledMenu>
+
+                 </div>
+          }
         
+      ]}
+      actions={[
+        {
+          icon: 'add',
+          tooltip: 'Add Subscriber',
+          isFreeAction: true,
+          onClick: (event, rowData) => {
+            setModalShow(true);
+          }
+        },
+        {
+            icon: ArchiveIcon,
+            tooltip: 'View Archive',
+            isFreeAction: true,
+            onClick: (event) => alert("You want to add a new row")
+          }
+      ]}
+      data={[
+        { user_id: '101', firstname: 'Baran', lastname: 'Musfet', email: 'ZeryaBetül@gmail.com' },
+        { user_id: '102', firstname: 'Baran', lastname: 'Longan', email: 'ZeryaBetül@gmail.com' },
+        { user_id: '103', firstname: 'Baran', lastname: 'Musfet', email: 'ZeryaBetül@gmail.com' },
+        { user_id: '104', firstname: 'Baran', lastname: 'Longan', email: 'ZeryaBetül@gmail.com' },
+        { user_id: '105', firstname: 'Baran', lastname: 'Musfet', email: 'ZeryaBetül@gmail.com' },
+        { user_id: '106', firstname: 'Baran', lastname: 'Longan', email: 'ZeryaBetül@gmail.com' },
+        { user_id: '107', firstname: 'Baran', lastname: 'Musfet', email: 'ZeryaBetül@gmail.com' },
+        { user_id: '108', firstname: 'Baran', lastname: 'Longan', email: 'ZeryaBetül@gmail.com' },
+        { user_id: '109', firstname: 'Baran', lastname: 'Musfet', email: 'ZeryaBetül@gmail.com' },
+        { user_id: '110', firstname: 'Baran', lastname: 'Longan', email: 'ZeryaBetül@gmail.com' },
+        { user_id: '111', firstname: 'Baran', lastname: 'Musfet', email: 'ZeryaBetül@gmail.com' },
+        { user_id: '112', firstname: 'Baran', lastname: 'Longan', email: 'ZeryaBetül@gmail.com' },
+      ]}        
+      options={{
+        sorting: true
+      }}
+    />
+            </div>
+        </Row>
 
     </Col>
     </Row>

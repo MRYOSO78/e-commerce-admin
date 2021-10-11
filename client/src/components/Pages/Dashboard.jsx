@@ -1,11 +1,41 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Col, Nav, Row ,Card, Form, Container} from "react-bootstrap";
 import SideNavBar from './SideNavBar';
 import Chart from 'react-apexcharts'
+import Axios from 'axios';
+import { hostUrl } from '../utils/hostUrl';
 
 
 function Dashboard() {
+    
+    const [innovatorsCount, setinnovatorsCount] = useState(0);
+    useEffect(() => {
+      Axios.get(`${hostUrl}/api/getInnovatorsTotal`)
+      .then((response) => setinnovatorsCount(response.data))
+      .catch((err) => console.error(err));
+      console.log(innovatorsCount);
+    }, [innovatorsCount]);
+
+
+    const [innovationCount, setinnovationCount] = useState(0);
+    useEffect(() => {
+      Axios.get(`${hostUrl}/api/getInnovationTotal`)
+      .then((response) => setinnovationCount(response.data))
+      .catch((err) => console.error(err));
+      console.log(innovationCount);
+    }, [innovationCount]);
+
+
+    const [journalsCount, setjournalsCount] = useState(0);
+    // useEffect(() => {
+    //   Axios.get(`${hostUrl}/api/getjournalsTotal`)
+    //   .then((response) => setjournalsCount(response.data))
+    //   .catch((err) => console.error(err));
+    //   console.log(journalsCount);
+    // }, [journalsCount]);
+
+
     var data = {
         options: {
           chart: {
@@ -57,7 +87,7 @@ function Dashboard() {
                             <Card style={{width:300, height: 150, margin:'auto'}}>
                                 <p style={{margin:15, fontWeight:'bold'}}>Innovators</p>
                                 <Container style={{display:'flex', justifyContent:'center', alignItems:'center', fontSize:40, fontWeight:'bold'}}>
-                                    10
+                                   {innovatorsCount}
                                 </Container>
                             </Card>
                             </Container>
@@ -68,7 +98,7 @@ function Dashboard() {
                             <Card style={{width:300, height: 150, margin:'auto'}}>
 <p style={{margin:15, fontWeight:'bold'}}>Innovation Product</p>
 <Container style={{display:'flex', justifyContent:'center', alignItems:'center', fontSize:40, fontWeight:'bold'}}>
-                                    10
+                                    {innovationCount}
                                 </Container>
                             </Card>
                             </Container>
@@ -79,7 +109,7 @@ function Dashboard() {
                             <Card style={{width:300, height: 150, margin:'auto'}}>
 <p style={{margin:15, fontWeight:'bold'}}>Uploaded journals</p>
 <Container style={{display:'flex', justifyContent:'center', alignItems:'center', fontSize:40, fontWeight:'bold'}}>
-                                    10
+                                    {journalsCount}
                                 </Container>
                             </Card>
                             </Container>
